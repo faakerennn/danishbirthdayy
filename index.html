@@ -1,0 +1,1482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>happy birthday danish 🤍</title>
+
+<style>
+*{
+  box-sizing:border-box;
+  -webkit-tap-highlight-color:transparent;
+}
+
+html,body{
+  margin:0;
+  width:100%;
+  height:100%;
+  overflow:hidden;
+  font-family:Arial,Helvetica,sans-serif;
+  background:#080b16;
+  color:white;
+}
+
+button{
+  font:inherit;
+  border:0;
+}
+
+.screen{
+  position:fixed;
+  inset:0;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  overflow:hidden;
+}
+
+.screen.active{
+  display:flex;
+}
+
+/* ================= INTRO ================= */
+
+#intro{
+  background:
+    radial-gradient(circle at 50% 20%,#243d78 0,#101a38 35%,#070914 75%);
+}
+
+.intro-web{
+  position:absolute;
+  width:600px;
+  height:600px;
+  border:1px solid rgba(255,255,255,.12);
+  border-radius:50%;
+}
+
+.intro-web:nth-child(2){
+  transform:scale(.75);
+}
+
+.intro-web:nth-child(3){
+  transform:scale(.5);
+}
+
+.intro-content{
+  position:relative;
+  z-index:5;
+  width:90%;
+  max-width:500px;
+}
+
+.spider-logo{
+  font-size:80px;
+  margin-bottom:10px;
+  animation:float 2s ease-in-out infinite;
+}
+
+@keyframes float{
+  50%{transform:translateY(-12px)}
+}
+
+.intro-content h1{
+  font-size:42px;
+  margin:0 0 10px;
+  letter-spacing:3px;
+}
+
+.intro-content p{
+  color:#bfc8e7;
+  line-height:1.6;
+}
+
+.main-btn{
+  margin-top:25px;
+  padding:17px 32px;
+  border-radius:18px;
+  background:#e9254f;
+  color:white;
+  font-weight:bold;
+  font-size:18px;
+  box-shadow:0 8px 30px rgba(233,37,79,.35);
+}
+
+/* ================= BIRTHDAY REWARD ================= */
+
+#reward{
+  background:
+    radial-gradient(circle at 50% 25%,#51345f,#16162b 55%,#080914);
+}
+
+.reward-box{
+  width:88%;
+  max-width:500px;
+  padding:35px 25px;
+  border:1px solid rgba(255,255,255,.15);
+  border-radius:28px;
+  background:rgba(255,255,255,.07);
+  backdrop-filter:blur(15px);
+  position:relative;
+  z-index:5;
+}
+
+.reward-box .emoji{
+  font-size:65px;
+}
+
+.reward-box h2{
+  margin:12px 0;
+}
+
+.reward-box p{
+  color:#d9d9e8;
+  line-height:1.7;
+}
+
+/* ================= GAME ================= */
+
+#game{
+  background:#080d20;
+  align-items:stretch;
+  justify-content:stretch;
+}
+
+#gameCanvas{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+}
+
+.hud{
+  position:absolute;
+  top:15px;
+  left:15px;
+  right:15px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  z-index:10;
+  pointer-events:none;
+}
+
+.hud-box{
+  background:rgba(8,12,28,.75);
+  border:1px solid rgba(255,255,255,.16);
+  padding:10px 14px;
+  border-radius:15px;
+  font-size:14px;
+  backdrop-filter:blur(8px);
+}
+
+.hud-center{
+  position:absolute;
+  left:50%;
+  transform:translateX(-50%);
+  top:0;
+  text-align:center;
+}
+
+.mission-name{
+  font-weight:bold;
+  font-size:16px;
+}
+
+.progress{
+  width:130px;
+  height:6px;
+  background:#252b43;
+  border-radius:20px;
+  margin-top:6px;
+  overflow:hidden;
+}
+
+.progress div{
+  height:100%;
+  width:0%;
+  background:#ef3157;
+  transition:.2s;
+}
+
+.instruction{
+  position:absolute;
+  top:105px;
+  left:50%;
+  transform:translateX(-50%);
+  background:rgba(0,0,0,.55);
+  padding:11px 18px;
+  border-radius:14px;
+  font-weight:bold;
+  z-index:10;
+  white-space:nowrap;
+  pointer-events:none;
+}
+
+.jump-btn{
+  position:absolute;
+  bottom:28px;
+  left:50%;
+  transform:translateX(-50%);
+  width:170px;
+  height:65px;
+  border-radius:22px;
+  background:#ed3156;
+  color:white;
+  font-size:21px;
+  font-weight:bold;
+  box-shadow:0 8px 30px rgba(237,49,86,.4);
+  z-index:20;
+}
+
+.jump-btn:active{
+  transform:translateX(-50%) scale(.94);
+}
+
+/* ================= LETTER ================= */
+
+#letter{
+  background:
+    radial-gradient(circle at 50% 30%,#493d65,#171627 60%,#080912);
+}
+
+.letter{
+  width:90%;
+  max-width:550px;
+  max-height:80vh;
+  overflow:auto;
+  padding:30px 25px;
+  border-radius:25px;
+  background:#fffaf3;
+  color:#25202a;
+  text-align:left;
+  box-shadow:0 20px 60px rgba(0,0,0,.4);
+}
+
+.letter h2{
+  text-align:center;
+  color:#d92750;
+}
+
+.letter p{
+  line-height:1.8;
+  font-size:16px;
+}
+
+/* ================= FINAL ================= */
+
+#final{
+  background:
+    radial-gradient(circle at 50% 30%,#7d2340,#251426 50%,#08070e);
+}
+
+.final-box{
+  width:90%;
+  max-width:550px;
+  position:relative;
+  z-index:3;
+}
+
+.final-heart{
+  font-size:90px;
+  animation:heartbeat 1s infinite;
+}
+
+@keyframes heartbeat{
+  50%{transform:scale(1.12)}
+}
+
+.final-box h1{
+  font-size:38px;
+  margin:10px 0;
+}
+
+.final-box p{
+  color:#ddd4df;
+  line-height:1.7;
+}
+
+.confetti{
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+}
+
+.confetti span{
+  position:absolute;
+  top:-30px;
+  width:8px;
+  height:15px;
+  animation:fall linear forwards;
+}
+
+@keyframes fall{
+  to{
+    transform:translateY(110vh) rotate(600deg);
+  }
+}
+
+.hidden{
+  display:none!important;
+}
+
+/* ================= MOBILE ================= */
+
+@media(max-width:600px){
+  .intro-content h1{
+    font-size:32px;
+  }
+
+  .instruction{
+    top:100px;
+    font-size:13px;
+  }
+
+  .hud{
+    top:10px;
+  }
+
+  .hud-box{
+    padding:8px 10px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<!-- ================= INTRO ================= -->
+
+<section id="intro" class="screen active">
+
+  <div class="intro-web"></div>
+  <div class="intro-web"></div>
+  <div class="intro-web"></div>
+
+  <div class="intro-content">
+    <div class="spider-logo">🕷️</div>
+
+    <h1>DANISH'S<br>BIRTHDAY MISSION</h1>
+
+    <p>
+      someone made something special for your birthday...
+      <br>
+      complete the missions to unlock the surprise.
+    </p>
+
+    <button class="main-btn" onclick="startGame()">
+      START MISSION
+    </button>
+  </div>
+
+</section>
+
+
+<!-- ================= GAME ================= -->
+
+<section id="game" class="screen">
+
+  <canvas id="gameCanvas"></canvas>
+
+  <div class="hud">
+
+    <div class="hud-box">
+      ❤️ <span id="lives">3</span>
+    </div>
+
+    <div class="hud-center">
+      <div class="mission-name" id="missionTitle">
+        MISSION 1
+      </div>
+
+      <div class="progress">
+        <div id="progressBar"></div>
+      </div>
+    </div>
+
+    <div class="hud-box">
+      ⭐ <span id="score">0</span>
+    </div>
+
+  </div>
+
+  <div class="instruction" id="instruction">
+    RUN → COLLECT ⭐ → JUMP OVER 🚧
+  </div>
+
+  <button class="jump-btn" id="jumpButton">
+    JUMP
+  </button>
+
+</section>
+
+
+<!-- ================= REWARD ================= -->
+
+<section id="reward" class="screen">
+
+  <div class="reward-box">
+
+    <div class="emoji" id="rewardEmoji">🎁</div>
+
+    <h2 id="rewardTitle">MISSION COMPLETE!</h2>
+
+    <p id="rewardText">
+      you unlocked a birthday surprise.
+    </p>
+
+    <button class="main-btn" onclick="nextMission()">
+      CONTINUE
+    </button>
+
+  </div>
+
+</section>
+
+
+<!-- ================= LETTER ================= -->
+
+<section id="letter" class="screen">
+
+  <div class="letter">
+
+    <h2>💌 a little birthday letter</h2>
+
+    <p>
+      happy birthdayyy 🥳🤍 hope you have a really good day today .
+      semoga panjang umur , murah rezeki and everything goes well for you .
+      i hope you get all the happiness you deserve , and semoga tahun ni
+      jadi tahun yang lebih baik for you . enjoy your dayy! 🎂💗
+    </p>
+
+    <div style="text-align:center;margin-top:25px;">
+      <button class="main-btn" onclick="continueAfterLetter()">
+        CONTINUE 🕷️
+      </button>
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- ================= FINAL ================= -->
+
+<section id="final" class="screen">
+
+  <div class="confetti" id="confetti"></div>
+
+  <div class="final-box">
+
+    <div class="final-heart">🎂</div>
+
+    <h1>HAPPY BIRTHDAY<br>DANISH 🤍</h1>
+
+    <p>
+      you completed every mission.
+      <br><br>
+      and this was the real mission all along —
+      <br>
+      making your birthday a little more special. 🥹💗
+    </p>
+
+    <button class="main-btn" onclick="location.reload()">
+      PLAY AGAIN
+    </button>
+
+  </div>
+
+</section>
+
+
+<script>
+
+/* =====================================================
+   BASIC SCREEN SYSTEM
+===================================================== */
+
+const screens = {
+  intro: document.getElementById("intro"),
+  game: document.getElementById("game"),
+  reward: document.getElementById("reward"),
+  letter: document.getElementById("letter"),
+  final: document.getElementById("final")
+};
+
+function showScreen(name){
+
+  Object.values(screens).forEach(s=>{
+    s.classList.remove("active");
+  });
+
+  screens[name].classList.add("active");
+}
+
+
+/* =====================================================
+   GAME VARIABLES
+===================================================== */
+
+const canvas = document.getElementById("gameCanvas");
+const ctx = canvas.getContext("2d");
+
+let W,H;
+
+function resize(){
+
+  W = canvas.width = window.innerWidth * devicePixelRatio;
+  H = canvas.height = window.innerHeight * devicePixelRatio;
+
+  canvas.style.width = window.innerWidth+"px";
+  canvas.style.height = window.innerHeight+"px";
+
+  ctx.setTransform(devicePixelRatio,0,0,devicePixelRatio,0,0);
+
+  W = window.innerWidth;
+  H = window.innerHeight;
+}
+
+window.addEventListener("resize",resize);
+resize();
+
+
+let running = false;
+let animation;
+
+let mission = 1;
+
+let lives = 3;
+let score = 0;
+
+let worldX = 0;
+
+let speed = 5;
+
+let jumpPower = 14;
+let gravity = .65;
+
+let ground;
+
+let player = {
+  x:100,
+  y:0,
+  w:38,
+  h:62,
+  vy:0,
+  jumping:false
+};
+
+let stars = [];
+let obstacles = [];
+let particles = [];
+
+let missionDistance = 2600;
+
+
+/* =====================================================
+   MISSION DATA
+===================================================== */
+
+const missions = [
+
+  {
+    title:"ROOFTOP RUN",
+    instruction:"RUN → COLLECT ⭐ → JUMP OVER 🚧",
+    rewardEmoji:"🎁",
+    rewardTitle:"FIRST SURPRISE UNLOCKED!",
+    rewardText:
+      "you found the first birthday reward. keep going... there's more waiting for you."
+  },
+
+  {
+    title:"CITY CHASE",
+    instruction:"KEEP RUNNING → JUMP 🚧 → COLLECT ⭐",
+    rewardEmoji:"💌",
+    rewardTitle:"A LITTLE MESSAGE FOR YOU",
+    rewardText:
+      "you're getting closer to the real birthday surprise. one more mission..."
+  },
+
+  {
+    title:"FINAL RUN",
+    instruction:"REACH THE END → COMPLETE THE BIRTHDAY MISSION",
+    rewardEmoji:"🎂",
+    rewardTitle:"YOU MADE IT!",
+    rewardText:
+      "the final surprise is ready. there's something waiting for you."
+  }
+
+];
+
+
+/* =====================================================
+   START
+===================================================== */
+
+function startGame(){
+
+  mission = 1;
+
+  showScreen("game");
+
+  resetGame();
+
+  running = true;
+
+  gameLoop();
+}
+
+
+/* =====================================================
+   RESET GAME
+===================================================== */
+
+function resetGame(){
+
+  cancelAnimationFrame(animation);
+
+  lives = 3;
+  score = 0;
+
+  worldX = 0;
+
+  speed = 5;
+
+  player.x = 100;
+
+  player.y = 0;
+
+  player.vy = 0;
+
+  player.jumping = false;
+
+  stars = [];
+  obstacles = [];
+  particles = [];
+
+  updateHUD();
+
+  createLevel();
+}
+
+
+/* =====================================================
+   CREATE LEVEL
+===================================================== */
+
+function createLevel(){
+
+  stars = [];
+  obstacles = [];
+
+  let x = 500;
+
+  while(x < missionDistance){
+
+    /* STAR */
+
+    stars.push({
+      x:x,
+      y:randomGroundY()-100-Math.random()*90,
+      r:14,
+      collected:false,
+      spin:Math.random()*6
+    });
+
+    /* OBSTACLE */
+
+    x += 220 + Math.random()*250;
+
+    obstacles.push({
+      x:x,
+      y:0,
+      w:45,
+      h:55,
+      hit:false
+    });
+
+    x += 120 + Math.random()*180;
+  }
+}
+
+
+/* =====================================================
+   RANDOM GROUND
+===================================================== */
+
+function randomGroundY(){
+
+  return H - 125;
+}
+
+
+/* =====================================================
+   JUMP
+===================================================== */
+
+function jump(){
+
+  if(!running) return;
+
+  if(!player.jumping){
+
+    player.vy = -jumpPower;
+
+    player.jumping = true;
+  }
+}
+
+document.getElementById("jumpButton")
+.addEventListener("touchstart",e=>{
+  e.preventDefault();
+  jump();
+},{passive:false});
+
+document.getElementById("jumpButton")
+.addEventListener("click",jump);
+
+document.addEventListener("keydown",e=>{
+
+  if(e.code==="Space" || e.code==="ArrowUp"){
+
+    jump();
+  }
+
+});
+
+
+/* =====================================================
+   GAME LOOP
+===================================================== */
+
+function gameLoop(){
+
+  if(!running) return;
+
+  update();
+
+  draw();
+
+  animation = requestAnimationFrame(gameLoop);
+}
+
+
+/* =====================================================
+   UPDATE
+===================================================== */
+
+function update(){
+
+  ground = H - 125;
+
+  /* AUTO RUN */
+
+  worldX += speed;
+
+  /* PLAYER PHYSICS */
+
+  player.vy += gravity;
+
+  player.y += player.vy;
+
+  if(player.y >= 0){
+
+    player.y = 0;
+
+    player.vy = 0;
+
+    player.jumping = false;
+  }
+
+
+  /* STARS */
+
+  stars.forEach(star=>{
+
+    if(star.collected) return;
+
+    star.spin += .08;
+
+    let sx = star.x - worldX + player.x;
+
+    let sy = star.y;
+
+    let px = player.x + player.w/2;
+
+    let py = ground + player.y - player.h/2;
+
+    let dx = sx - px;
+    let dy = sy - py;
+
+    if(Math.sqrt(dx*dx+dy*dy)<55){
+
+      star.collected = true;
+
+      score++;
+
+      burst(sx,sy,"⭐");
+
+      updateHUD();
+    }
+
+  });
+
+
+  /* OBSTACLES */
+
+  obstacles.forEach(ob=>{
+
+    if(ob.hit) return;
+
+    let ox = ob.x - worldX + player.x;
+
+    let oy = ground - ob.h;
+
+    let px = player.x;
+    let py = ground + player.y - player.h;
+
+    if(
+      px < ox+ob.w &&
+      px+player.w > ox &&
+      py < oy+ob.h &&
+      py+player.h > oy
+    ){
+
+      ob.hit = true;
+
+      if(!player.jumping){
+
+        lives--;
+
+        updateHUD();
+
+        screenShake();
+
+        if(lives<=0){
+
+          lives = 3;
+
+          worldX = 0;
+
+          player.y = 0;
+
+          obstacles.forEach(o=>o.hit=false);
+
+          updateHUD();
+        }
+
+      }
+
+    }
+
+  });
+
+
+  /* PARTICLES */
+
+  particles.forEach(p=>{
+
+    p.x += p.vx;
+    p.y += p.vy;
+
+    p.vy += .2;
+
+    p.life--;
+
+  });
+
+  particles = particles.filter(p=>p.life>0);
+
+
+  /* FINISH */
+
+  if(worldX >= missionDistance){
+
+    finishMission();
+  }
+
+  updateHUD();
+}
+
+
+/* =====================================================
+   DRAW
+===================================================== */
+
+function draw(){
+
+  ctx.clearRect(0,0,W,H);
+
+  drawSky();
+
+  drawBuildings();
+
+  drawRoad();
+
+  drawStars();
+
+  drawObstacles();
+
+  drawPlayer();
+
+  drawParticles();
+
+  drawFinish();
+
+}
+
+
+/* =====================================================
+   SKY
+===================================================== */
+
+function drawSky(){
+
+  let g = ctx.createLinearGradient(0,0,0,H);
+
+  g.addColorStop(0,"#07112d");
+  g.addColorStop(.6,"#172d59");
+  g.addColorStop(1,"#0a0e1b");
+
+  ctx.fillStyle=g;
+
+  ctx.fillRect(0,0,W,H);
+
+  /* moon */
+
+  ctx.fillStyle="#dfe8ff";
+
+  ctx.beginPath();
+
+  ctx.arc(W-100,130,55,0,Math.PI*2);
+
+  ctx.fill();
+
+  /* stars */
+
+  for(let i=0;i<45;i++){
+
+    let x=(i*97)%W;
+    let y=70+(i*53)%(H*.45);
+
+    ctx.fillStyle="rgba(255,255,255,.55)";
+
+    ctx.beginPath();
+    ctx.arc(x,y,2,0,Math.PI*2);
+    ctx.fill();
+  }
+}
+
+
+/* =====================================================
+   BUILDINGS
+===================================================== */
+
+function drawBuildings(){
+
+  let base=H-125;
+
+  for(let i=0;i<12;i++){
+
+    let bw=100+(i%3)*45;
+
+    let bh=170+(i%4)*70;
+
+    let x=(i*150 - (worldX*.18)%150);
+
+    ctx.fillStyle=i%2
+      ? "#101c38"
+      : "#0d1830";
+
+    ctx.fillRect(x,base-bh,bw,bh);
+
+    for(let wy=base-bh+25;wy<base-20;wy+=35){
+
+      for(let wx=x+15;wx<x+bw-10;wx+=30){
+
+        ctx.fillStyle="rgba(255,214,100,.35)";
+
+        ctx.fillRect(wx,wy,10,5);
+      }
+    }
+  }
+}
+
+
+/* =====================================================
+   ROAD
+===================================================== */
+
+function drawRoad(){
+
+  let y=H-125;
+
+  ctx.fillStyle="#111625";
+
+  ctx.fillRect(0,y,W,125);
+
+  ctx.fillStyle="#2d354a";
+
+  ctx.fillRect(0,y,W,5);
+
+  for(let x=-(worldX%100);x<W;x+=100){
+
+    ctx.fillStyle="#d7c98c";
+
+    ctx.fillRect(x,y+60,55,5);
+  }
+}
+
+
+/* =====================================================
+   STARS
+===================================================== */
+
+function drawStars(){
+
+  stars.forEach(star=>{
+
+    if(star.collected) return;
+
+    let x=star.x-worldX+player.x;
+
+    if(x<-50 || x>W+50) return;
+
+    ctx.save();
+
+    ctx.translate(x,star.y);
+
+    ctx.rotate(star.spin);
+
+    ctx.fillStyle="#ffd84d";
+
+    ctx.beginPath();
+
+    for(let i=0;i<10;i++){
+
+      let a=-Math.PI/2+i*Math.PI/5;
+
+      let r=i%2===0?16:7;
+
+      let px=Math.cos(a)*r;
+      let py=Math.sin(a)*r;
+
+      if(i===0)ctx.moveTo(px,py);
+      else ctx.lineTo(px,py);
+    }
+
+    ctx.closePath();
+    ctx.fill();
+
+    ctx.restore();
+  });
+}
+
+
+/* =====================================================
+   OBSTACLES
+===================================================== */
+
+function drawObstacles(){
+
+  obstacles.forEach(ob=>{
+
+    let x=ob.x-worldX+player.x;
+
+    if(x<-80 || x>W+80) return;
+
+    let y=ground-ob.h;
+
+    ctx.fillStyle="#e92b53";
+
+    ctx.fillRect(x,y,ob.w,ob.h);
+
+    ctx.fillStyle="#242b40";
+
+    ctx.fillRect(x+5,y+5,ob.w-10,ob.h-10);
+
+    ctx.fillStyle="#ff4d6d";
+
+    ctx.fillRect(x,y,ob.w,5);
+  });
+}
+
+
+/* =====================================================
+   PLAYER
+===================================================== */
+
+function drawPlayer(){
+
+  let x=player.x;
+
+  let y=ground+player.y;
+
+  ctx.save();
+
+  /* shadow */
+
+  ctx.fillStyle="rgba(0,0,0,.3)";
+
+  ctx.beginPath();
+
+  ctx.ellipse(
+    x+player.w/2,
+    ground+5,
+    28,
+    7,
+    0,
+    0,
+    Math.PI*2
+  );
+
+  ctx.fill();
+
+
+  /* body */
+
+  ctx.fillStyle="#e32650";
+
+  ctx.fillRect(
+    x+8,
+    y-player.h+15,
+    23,
+    35
+  );
+
+
+  /* head */
+
+  ctx.beginPath();
+
+  ctx.arc(
+    x+20,
+    y-player.h+8,
+    17,
+    0,
+    Math.PI*2
+  );
+
+  ctx.fill();
+
+
+  /* mask */
+
+  ctx.fillStyle="#111";
+
+  ctx.beginPath();
+
+  ctx.arc(
+    x+20,
+    y-player.h+8,
+    13,
+    0,
+    Math.PI*2
+  );
+
+  ctx.fill();
+
+
+  /* eyes */
+
+  ctx.fillStyle="white";
+
+  ctx.beginPath();
+
+  ctx.ellipse(
+    x+15,
+    y-player.h+5,
+    4,
+    7,
+    -.3,
+    0,
+    Math.PI*2
+  );
+
+  ctx.ellipse(
+    x+25,
+    y-player.h+5,
+    4,
+    7,
+    .3,
+    0,
+    Math.PI*2
+  );
+
+  ctx.fill();
+
+
+  /* legs */
+
+  ctx.strokeStyle="#e32650";
+
+  ctx.lineWidth=8;
+
+  ctx.lineCap="round";
+
+  let run=Math.sin(Date.now()/70)*7;
+
+  ctx.beginPath();
+
+  ctx.moveTo(x+14,y-12);
+  ctx.lineTo(x+10+run,y+2);
+
+  ctx.moveTo(x+27,y-12);
+  ctx.lineTo(x+30-run,y+2);
+
+  ctx.stroke();
+
+
+  /* arms */
+
+  ctx.beginPath();
+
+  ctx.moveTo(x+9,y-player.h+22);
+  ctx.lineTo(x-2-run/2,y-player.h+38);
+
+  ctx.moveTo(x+31,y-player.h+22);
+  ctx.lineTo(x+42+run/2,y-player.h+38);
+
+  ctx.stroke();
+
+  ctx.restore();
+}
+
+
+/* =====================================================
+   FINISH
+===================================================== */
+
+function drawFinish(){
+
+  if(worldX<missionDistance-500) return;
+
+  let x=missionDistance-worldX+player.x;
+
+  ctx.fillStyle="#fff";
+
+  ctx.font="bold 22px Arial";
+
+  ctx.fillText("FINISH →",x,H-190);
+
+  ctx.strokeStyle="#fff";
+
+  ctx.lineWidth=4;
+
+  ctx.beginPath();
+
+  ctx.moveTo(x,H-125);
+
+  ctx.lineTo(x,H-210);
+
+  ctx.stroke();
+}
+
+
+/* =====================================================
+   PARTICLES
+===================================================== */
+
+function burst(x,y,text){
+
+  for(let i=0;i<10;i++){
+
+    particles.push({
+      x:x,
+      y:y,
+      vx:(Math.random()-.5)*5,
+      vy:(Math.random()-.5)*5,
+      life:35,
+      text:text
+    });
+  }
+}
+
+function drawParticles(){
+
+  particles.forEach(p=>{
+
+    ctx.globalAlpha=p.life/35;
+
+    ctx.font="18px Arial";
+
+    ctx.fillText(p.text,p.x,p.y);
+
+    ctx.globalAlpha=1;
+  });
+}
+
+
+/* =====================================================
+   HUD
+===================================================== */
+
+function updateHUD(){
+
+  document.getElementById("lives").textContent=lives;
+
+  document.getElementById("score").textContent=score;
+
+  document.getElementById("missionTitle").textContent=
+    "MISSION "+mission+" · "+missions[mission-1].title;
+
+  let progress=
+    Math.min(worldX/missionDistance*100,100);
+
+  document.getElementById("progressBar").style.width=
+    progress+"%";
+
+  document.getElementById("instruction").textContent=
+    missions[mission-1].instruction;
+}
+
+
+/* =====================================================
+   SCREEN SHAKE
+===================================================== */
+
+function screenShake(){
+
+  canvas.style.transform="translateX(8px)";
+
+  setTimeout(()=>{
+    canvas.style.transform="translateX(-8px)";
+  },50);
+
+  setTimeout(()=>{
+    canvas.style.transform="translateX(0)";
+  },100);
+}
+
+
+/* =====================================================
+   FINISH MISSION
+===================================================== */
+
+function finishMission(){
+
+  running=false;
+
+  cancelAnimationFrame(animation);
+
+  if(mission===2){
+
+    showScreen("letter");
+
+    return;
+  }
+
+  showReward();
+}
+
+
+/* =====================================================
+   REWARD
+===================================================== */
+
+function showReward(){
+
+  let data=missions[mission-1];
+
+  document.getElementById("rewardEmoji").textContent=
+    data.rewardEmoji;
+
+  document.getElementById("rewardTitle").textContent=
+    data.rewardTitle;
+
+  document.getElementById("rewardText").textContent=
+    data.rewardText;
+
+  showScreen("reward");
+}
+
+
+/* =====================================================
+   NEXT MISSION
+===================================================== */
+
+function nextMission(){
+
+  if(mission>=3){
+
+    showFinal();
+
+    return;
+  }
+
+  mission++;
+
+  showScreen("game");
+
+  resetGame();
+
+  running=true;
+
+  gameLoop();
+}
+
+
+/* =====================================================
+   AFTER LETTER
+===================================================== */
+
+function continueAfterLetter(){
+
+  mission=3;
+
+  showScreen("game");
+
+  resetGame();
+
+  running=true;
+
+  gameLoop();
+}
+
+
+/* =====================================================
+   FINAL
+===================================================== */
+
+function showFinal(){
+
+  showScreen("final");
+
+  createConfetti();
+}
+
+
+/* =====================================================
+   CONFETTI
+===================================================== */
+
+function createConfetti(){
+
+  let box=document.getElementById("confetti");
+
+  box.innerHTML="";
+
+  for(let i=0;i<70;i++){
+
+    let s=document.createElement("span");
+
+    s.style.left=Math.random()*100+"%";
+
+    s.style.animationDuration=
+      (2+Math.random()*3)+"s";
+
+    s.style.animationDelay=
+      Math.random()*2+"s";
+
+    s.style.background=
+      ["#ef3157","#ffd84d","#72b8ff","#ffffff","#9c7cff"]
+      [Math.floor(Math.random()*5)];
+
+    box.appendChild(s);
+  }
+}
+
+</script>
+
+</body>
+</html>
