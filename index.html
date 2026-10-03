@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+<title>birthday puzzle 💗</title>
+
+<style>
+*{box-sizing:border-box}
+
+body{
+  margin:0;
+  min-height:100vh;
+  font-family:Arial,sans-serif;
+  color:white;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  overflow:hidden;
+  background:
+    radial-gradient(circle at 20% 15%,#ffb9dc,transparent 30%),
+    radial-gradient(circle at 80% 80%,#aaa4ff,transparent 32%),
+    linear-gradient(145deg,#17152d,#382449,#17152d);
+}
+
+.bg{
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+}
+
+.bg span{
+  position:absolute;
+  font-size:25px;
+  opacity:.55;
+  animation:float 5s ease-in-out infinite;
+}
+
+.bg span:nth-child(1){left:8%;top:10%}
+.bg span:nth-child(2){right:10%;top:18%;animation-delay:1s}
+.bg span:nth-child(3){left:15%;bottom:15%;animation-delay:2s}
+.bg span:nth-child(4){right:15%;bottom:10%;animation-delay:3s}
+
+@keyframes float{
+  50%{transform:translateY(-18px) rotate(10deg)}
+}
+
+.card{
+  width:min(94vw,650px);
+  max-height:94vh;
+  overflow:auto;
+  padding:25px;
+  text-align:center;
+  border-radius:30px;
+  background:#17152ddd;
+  backdrop-filter:blur(15px);
+  border:1px solid #ffffff25;
+  box-shadow:0 20px 70px #0008;
+}
+
+h1{
+  margin:5px 0 10px;
+  font-size:clamp(30px,8vw,48px);
+}
+
+p{
+  line-height:1.6;
+}
+
+button{
+  border:0;
+  padding:14px 24px;
+  border-radius:999px;
+  background:linear-gradient(135deg,#ff91c9,#b99cff);
+  color:#29152f;
+  font-weight:bold;
+  font-size:16px;
+  cursor:pointer;
+  box-shadow:0 8px 25px #0005;
+}
+
+.hidden{
+  display:none!important;
+}
+
+.emoji{
+  font-size:55px;
+  animation:pulse 1.2s infinite;
+}
+
+@keyframes pulse{
+  50%{transform:scale(1.12)}
+}
+
+/* PUZZLE */
+
+.top{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:10px;
+}
+
+.badge{
+  padding:9px 14px;
+  border-radius:18px;
+  background:#ffffff16;
+  border:1px solid #ffffff20;
+  font-weight:bold;
+}
+
+.progress{
+  width:100%;
+  height:9px;
+  border-radius:20px;
+  background:#ffffff18;
+  overflow:hidden;
+  margin:15px 0;
+}
+
+.progress div{
+  height:100%;
+  width:0%;
+  background:linear-gradient(90deg,#ff91c9,#b99cff);
+  transition:.3s;
+}
+
+.board{
+  width:min(88vw,520px);
+  aspect-ratio:3/4;
+  margin:15px auto;
+  padding:6px;
+  background:white;
+  border:6px solid #ffd1e7;
+  border-radius:22px;
+  box-shadow:0 15px 35px #0008;
+  touch-action:none;
+}
+
+.grid{
+  width:100%;
+  height:100%;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  grid-template-rows:repeat(4,1fr);
+  gap:3px;
+}
+
+.slot{
+  position:relative;
+  min-width:0;
+  min-height:0;
+  border-radius:6px;
+}
+
+.tile{
+  width:100%;
+  height:100%;
+  border-radius:6px;
+  cursor:grab;
+  border:2px solid white;
+  background-image:url("IMG_2925.jpeg");
+  background-size:300% 400%;
+  transition:.15s;
+  touch-action:none;
+}
+
+.tile:hover{
+  transform:scale(1.03);
+}
+
+.tile.selected{
+  outline:4px solid #ff8fc8;
+  outline-offset:-4px;
+  transform:scale(1.04);
+}
+
+.hint{
+  opacity:.7;
+  font-size:13px;
+}
+
+#message{
+  background:#ffffff12;
+  padding:18px;
+  border-radius:20px;
+  line-height:1.7;
+  margin-top:15px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="bg">
+  <span>♡</span>
+  <span>✦</span>
+  <span>♡</span>
+  <span>✧</span>
+</div>
+
+<!-- START -->
+
+<div class="card" id="start">
+
+  <div class="emoji">🕷️💗</div>
+
+  <h1>birthday puzzle</h1>
+
+  <p>
+    i made a little puzzle specially for you 🥹
+  </p>
+
+  <p>
+    put our picture back together to unlock your birthday surprise 🎂
+  </p>
+
+  <button onclick="startGame()">
+    start puzzle ✨
+  </button>
+
+</div>
+
+
+<!-- GAME -->
+
+<div class="card hidden" id="game">
+
+  <div class="top">
+
+    <div class="badge">
+      🧩 puzzle
+    </div>
+
+    <div class="badge">
+      <span id="score">0</span>/12
+    </div>
+
+  </div>
+
+  <h1 style="font-size:28px">
+    put us back together 💗
+  </h1>
+
+  <p>
+    drag the pieces into the right place
+  </p>
+
+  <div class="progress">
+    <div id="bar"></div>
+  </div>
+
+  <div class="board">
+    <div class="grid" id="grid"></div>
+  </div>
+
+  <p class="hint">
+    💡 on phone: tap two pieces to swap them
+  </p>
+
+  <button onclick="shufflePuzzle()">
+    shuffle 🔀
+  </button>
+
+</div>
+
+
+<!-- WIN -->
+
+<div class="card hidden" id="win">
+
+  <div class="emoji">
+    🥹💗
+  </div>
+
+  <h1>
+    you did it!
+  </h1>
+
+  <p>
+    you completed our little puzzle 🧩
+  </p>
+
+  <div id="message">
+
+    happy birthdayyy 🥳🤍 hope you have a really good day today .
+    semoga panjang umur , murah rezeki and everything goes well for you .
+    i hope you get all the happiness you deserve , and semoga tahun ni jadi
+    tahun yang lebih baik for you . enjoy your dayy! 🎂💗
+
+  </div>
+
+  <br>
+
+  <button onclick="location.reload()">
+    play again 💞
+  </button>
+
+</div>
+
+
+<script>
+
+const ROWS = 4;
+const COLS = 3;
+const TOTAL = ROWS * COLS;
+
+let pieces = [];
+let selected = null;
+
+
+/* START */
+
+function startGame(){
+
+  document
+    .getElementById("start")
+    .classList.add("hidden");
+
+  document
+    .getElementById("game")
+    .classList.remove("hidden");
+
+  shufflePuzzle();
+}
+
+
+/* SHUFFLE */
+
+function shufflePuzzle(){
+
+  pieces = [];
+
+  for(let i=0;i<TOTAL;i++){
+    pieces.push(i);
+  }
+
+  do{
+
+    pieces.sort(
+      ()=>Math.random()-0.5
+    );
+
+  }while(
+    pieces.every(
+      (x,i)=>x===i
+    )
+  );
+
+  selected=null;
+
+  renderPuzzle();
+}
+
+
+/* DRAW PUZZLE */
+
+function renderPuzzle(){
+
+  const grid =
+    document.getElementById("grid");
+
+  grid.innerHTML="";
+
+  pieces.forEach(
+    (piece,slot)=>{
+
+      const box =
+        document.createElement("div");
+
+      box.className="slot";
+
+      const tile =
+        document.createElement("div");
+
+      tile.className="tile";
+
+      tile.dataset.slot=slot;
+
+      /*
+        piece position
+      */
+
+      const x =
+        piece % COLS;
+
+      const y =
+        Math.floor(
+          piece / COLS
+        );
+
+      tile.style.backgroundPosition =
+        `${x*50}% ${y*100/3}%`;
+
+      tile.addEventListener(
+        "click",
+        ()=>{
+          selectPiece(slot);
+        }
+      );
+
+      /*
+        drag support
+      */
+
+      tile.draggable=true;
+
+      tile.addEventListener(
+        "dragstart",
+        e=>{
+          e.dataTransfer.setData(
+            "text/plain",
+            slot
+          );
+        }
+      );
+
+      tile.addEventListener(
+        "dragover",
+        e=>{
+          e.preventDefault();
+        }
+      );
+
+      tile.addEventListener(
+        "drop",
+        e=>{
+
+          e.preventDefault();
+
+          const from =
+            Number(
+              e.dataTransfer.getData(
+                "text/plain"
+              )
+            );
+
+          swapPieces(
+            from,
+            slot
+          );
+
+        }
+      );
+
+      box.appendChild(tile);
+
+      grid.appendChild(box);
+
+    }
+  );
+
+  updateProgress();
+}
+
+
+/* TAP TWO PIECES */
+
+function selectPiece(slot){
+
+  const tiles =
+    document.querySelectorAll(
+      ".tile"
+    );
+
+  if(selected===null){
+
+    selected=slot;
+
+    tiles[slot]
+      .classList.add("selected");
+
+    return;
+  }
+
+  tiles[selected]
+    .classList.remove("selected");
+
+  if(selected!==slot){
+
+    swapPieces(
+      selected,
+      slot
+    );
+
+  }
+
+  selected=null;
+}
+
+
+/* SWAP */
+
+function swapPieces(a,b){
+
+  [
+    pieces[a],
+    pieces[b]
+  ] =
+  [
+    pieces[b],
+    pieces[a]
+  ];
+
+  renderPuzzle();
+
+  if(
+    pieces.every(
+      (piece,i)=>piece===i
+    )
+  ){
+
+    setTimeout(
+      finishPuzzle,
+      600
+    );
+
+  }
+}
+
+
+/* PROGRESS */
+
+function updateProgress(){
+
+  let correct=0;
+
+  pieces.forEach(
+    (piece,i)=>{
+
+      if(piece===i){
+        correct++;
+      }
+
+    }
+  );
+
+  document
+    .getElementById("score")
+    .textContent=correct;
+
+  document
+    .getElementById("bar")
+    .style.width=
+      `${correct/TOTAL*100}%`;
+}
+
+
+/* FINISH */
+
+function finishPuzzle(){
+
+  document
+    .getElementById("game")
+    .classList.add("hidden");
+
+  document
+    .getElementById("win")
+    .classList.remove("hidden");
+
+}
+
+</script>
+
+</body>
+</html>
